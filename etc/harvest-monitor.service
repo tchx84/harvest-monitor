@@ -1,0 +1,9 @@
+[Unit]
+Description=Harvest Network Traffic Monitor
+After=network.target
+
+[Service]
+ExecStart=/opt/harvest-monitor/daemon.py
+
+[Install]
+WantedBy=multi-user.target

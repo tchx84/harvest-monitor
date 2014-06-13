@@ -1,5 +1,5 @@
 Name:           harvest-monitor
-Version:        0.1.0
+Version:        0.1.5
 Release:        1
 Summary:        Harvest Network Traffic Monitor
 

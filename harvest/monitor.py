@@ -25,7 +25,7 @@ from log import Log
 class Monitor(object):
 
     WAIT = 300
-    RE_BYTES = ', (\d+) bytes'
+    RE_BYTES = '(\d+) netactivity  tcp'
     CMD_INPUT = 'iptables --list INPUT --verbose --exact'
     CMD_OUTPUT = 'iptables --list OUTPUT --verbose --exact'
 

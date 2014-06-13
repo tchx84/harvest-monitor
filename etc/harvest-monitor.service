@@ -1,6 +1,6 @@
 [Unit]
 Description=Harvest Network Traffic Monitor
-After=network.target
+After=network.target powerd.service
 
 [Service]
 ExecStart=/opt/harvest-monitor/daemon.py

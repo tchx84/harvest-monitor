@@ -7,7 +7,7 @@ License:        GPLv2+
 URL:            https://github.com/tchx84/harvest-monitor
 Source0:        %{name}-%{version}.tar.gz
 
-Requires:       python >= 2.7
+Requires:       python >= 2.7, olpc-powerd >= 110
 
 BuildArch:      noarch
 

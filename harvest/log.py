@@ -27,11 +27,10 @@ class Log(object):
                    'download INT, '\
                    'upload INT)'
 
-    QUERY_ALL = 'SELECT * from counters'
-
     QUERY_FIND_ONE = 'SELECT * FROM counters WHERE timestamp=?'
 
-    QUERY_FIND_ALL = 'SELECT * FROM counters WHERE timestamp >= ?'
+    QUERY_FIND_ALL = 'SELECT * FROM counters WHERE '\
+                     'timestamp >= ? AND timestamp <= ?'
 
     QUERY_INSERT = 'INSERT OR REPLACE INTO counters '\
                    '(timestamp, download, upload) '\
@@ -45,20 +44,10 @@ class Log(object):
         cursor = self._connection.cursor()
         cursor.execute(self.QUERY_CREATE)
 
-    def all(self):
+    def find(self, start, end):
         cursor = self._connection.cursor()
-        cursor.execute(self.QUERY_ALL)
-        rows = cursor.fetchall()
-
-        for row in rows:
-            print row
-
-    def find(self, timestamp):
-        cursor = self._connection.cursor()
-        cursor.execute(self.QUERY_FIND_ALL, (timestamp,))
-        rows = cursor.fetchall()
-        for row in rows:
-            print row
+        cursor.execute(self.QUERY_FIND_ALL, (start, end,))
+        return cursor.fetchall()
 
     def save(self, timestamp, delta_download, delta_upload):
         cursor = self._connection.cursor()

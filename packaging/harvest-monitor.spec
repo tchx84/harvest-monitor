@@ -23,7 +23,7 @@ Network traffic monitoring tool based iptables counters, to be used for the Harv
 rm -rf $RPM_BUILD_ROOT
 
 mkdir -p $RPM_BUILD_ROOT/opt/harvest-monitor/
-cp -r daemon.py harvest $RPM_BUILD_ROOT/opt/harvest-monitor/
+cp -r daemon.py harvest misc $RPM_BUILD_ROOT/opt/harvest-monitor/
 
 mkdir -p $RPM_BUILD_ROOT/%{_sysconfdir}/systemd/system/
 cp etc/harvest-monitor.service $RPM_BUILD_ROOT/%{_sysconfdir}/systemd/system/
@@ -34,6 +34,7 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(-,root,root)
 /opt/harvest-monitor/daemon.py
+/opt/harvest-monitor/misc/rules.sh
 /opt/harvest-monitor/harvest/__init__.py
 /opt/harvest-monitor/harvest/log.py
 /opt/harvest-monitor/harvest/monitor.py

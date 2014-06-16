@@ -25,9 +25,13 @@ from log import Log
 class Monitor(object):
 
     WAIT = 300
-    RE_BYTES = '(\d+) netactivity  tcp'
-    CMD_INPUT = 'iptables --list INPUT --verbose --exact'
-    CMD_OUTPUT = 'iptables --list OUTPUT --verbose --exact'
+    RE_BYTES = '(\d+) RETURN'
+    CMD_RULES = '/opt/harvest-monitor/misc/rules.sh'
+    CMD_INPUT = 'iptables --list harvest_in --verbose --exact --zero'
+    CMD_OUTPUT = 'iptables --list harvest_out --verbose --exact --zero'
+
+    def _add_rules(self):
+        subprocess.check_call(self.CMD_RULES, shell=True)
 
     def _get_counter(self, cmd):
         raw = subprocess.check_output(cmd, shell=True)
@@ -40,23 +44,14 @@ class Monitor(object):
     def run(self):
         log = Log()
 
-        # use current counters as reference, dont bother with the past
-        prev_download = self._get_counter(self.CMD_INPUT)
-        prev_upload = self._get_counter(self.CMD_OUTPUT)
-
+        self._add_rules()
         while True:
             # check what we have now
             timestamp = self._get_timestamp()
             download = self._get_counter(self.CMD_INPUT)
             upload = self._get_counter(self.CMD_OUTPUT)
 
-            # find the deltas
-            delta_download = download - prev_download
-            delta_upload = upload - prev_upload
+            print timestamp, download, upload
+            log.save(timestamp, download, upload)
 
-            print timestamp, delta_download, delta_upload
-            log.save(timestamp, delta_download, delta_upload)
-
-            prev_download = download
-            prev_upload = upload
             time.sleep(self.WAIT)

@@ -1,4 +1,10 @@
 #!/bin/bash
+
+# exit if already created
+/usr/sbin/iptables -L | grep harvest
+if [ $? -eq 0 ]; then
+    exit 0
+fi
  
 # create our new chains to monitor
 /usr/sbin/iptables -N harvest_in

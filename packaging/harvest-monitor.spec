@@ -1,6 +1,6 @@
 Name:           harvest-monitor
 Version:        0.2.0
-Release:        1
+Release:        2
 Summary:        Harvest Network Traffic Monitor
 
 License:        GPLv2+
